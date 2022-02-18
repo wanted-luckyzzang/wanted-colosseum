@@ -55,9 +55,8 @@ export default function Table(props: any) {
         </Box>
       ) : (
         <>
-          <TableContainer component={Paper}>
+          <TableContainer component={Paper} sx={{overflowX: "visible"}}>
             <MUITable
-              sx={{ minWidth: 650 }}
               stickyHeader
               aria-label="sticky table"
             >
