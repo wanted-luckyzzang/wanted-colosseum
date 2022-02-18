@@ -1,19 +1,28 @@
 import { useEffect, useState } from 'react';
-import { getFilterData } from 'utils';
 import { DataType } from './Table';
 
 type SelectType = {
-  data: DataType[] | undefined;
   options: string[];
   member: string;
-  setData: (data: DataType[] | undefined) => void;
   title: string;
+  selectList: DataType;
+  setSelectList: (state: DataType) => void;
 };
-const Select = ({ data, options, member, setData, title }: SelectType) => {
+
+const Select = ({
+  options,
+  member,
+  title,
+  selectList,
+  setSelectList,
+}: SelectType) => {
   const [select, setSelect] = useState<string>('');
   useEffect(() => {
-    if (select.length) setData(getFilterData(data, member, select));
-    else setData(data);
+    let newSelectList = {
+      ...selectList,
+    };
+    newSelectList[member] = select;
+    setSelectList(newSelectList);
   }, [select]);
 
   return (
