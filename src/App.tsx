@@ -1,5 +1,12 @@
+import { Table } from 'Components';
+import DataList from 'Components/DataList';
+
 const App = (): JSX.Element => {
-  return <div>hello!</div>;
+  return (
+    <>
+      <Table />
+    </>
+  );
 };
 
 export default App;
