@@ -58,15 +58,15 @@
 │   └── index.html
 ├── src 
 │   ├── components
-│   │   ├── Button.tsx
-│   │   ├── Modal.tsx
-│   │   ├── Select.tsx
-│   │   ├── Table.tsx
+│   │   ├── Button.tsx          # 스크롤 리모콘
+│   │   ├── Modal.tsx           # 상세 정보
+│   │   ├── Select.tsx          # header 조건검색
+│   │   ├── Table.tsx           # 메인 Grid
 │   │   ├── index.ts
 │   ├── style
 │   │   └── GlobalStyles.tsx
 │   ├── types
-│   └── utils
+│   └── utils                   # 자주 사용하는 함수
 │   │   ├── getFilterData.ts
 │   │   ├── getScrollTo.tsx
 │   │   ├── getSelectList.ts
