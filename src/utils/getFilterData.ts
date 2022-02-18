@@ -3,9 +3,9 @@ import { DataType } from 'Components/Table';
 const getFilterData = (
   data: DataType[] | undefined,
   member: string,
-  value: string | null,
+  value: string,
 ): DataType[] | undefined => {
-  const filterData = data?.filter((obj) => obj[member] === value);
+  const filterData = data?.filter((obj) => obj[member].includes(value));
 
   return filterData;
 };
