@@ -107,7 +107,15 @@ export default function Table(props: any) {
                       title={'영업상태명'}
                     />
                   </TableCell>
-                  <TableCell align="left">소재지 시설 전화</TableCell>
+                  <TableCell align="left">
+                    <Select
+                      data={data}
+                      options={getSelectList(data, 'LOCPLC_FACLT_TELNO_DTLS')}
+                      member={'LOCPLC_FACLT_TELNO_DTLS'}
+                      setData={setCpData}
+                      title={'소재지 시설 전화'}
+                    />
+                  </TableCell>
                   <TableCell align="left">
                     <Select
                       data={data}
@@ -129,11 +137,8 @@ export default function Table(props: any) {
                   <TableCell align="left">
                     <Select
                       data={data}
-                      options={getSelectList(
-                        data,
-                        'REFINE_ROADNMGENRL_WAREHS_DONG_CNT_ADDR',
-                      )}
-                      member={'REFINE_ROADNMGENRL_WAREHS_DONG_CNT_ADDR'}
+                      options={getSelectList(data, 'REFINE_ZIPNO')}
+                      member={'REFINE_ZIPNO'}
                       setData={setCpData}
                       title={'소재지우편'}
                     />
@@ -154,15 +159,6 @@ export default function Table(props: any) {
                       member={'GENRL_WAREHS_AR_INFO'}
                       setData={setCpData}
                       title={'일반 창고 면적'}
-                    />
-                  </TableCell>
-                  <TableCell align="left">
-                    <Select
-                      data={data}
-                      options={getSelectList(data, 'LOCPLC_AR_INFO')}
-                      member={'LOCPLC_AR_INFO'}
-                      setData={setCpData}
-                      title={'보관창고 면적'}
                     />
                   </TableCell>
                   <TableCell align="left">
@@ -234,7 +230,7 @@ export default function Table(props: any) {
                     </TableCell>
                     {/* 소재지 우편 */}
                     <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
-                      {el.REFINE_ROADNMGENRL_WAREHS_DONG_CNT_ADDR}
+                      {el.REFINE_ZIPNO}
                     </TableCell>
                     {/* 일반 창고 동수 */}
                     <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
@@ -243,10 +239,6 @@ export default function Table(props: any) {
                     {/* 일반 창고 면적 */}
                     <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
                       {el.GENRL_WAREHS_AR_INFO}
-                    </TableCell>
-                    {/* 보관창고 면적 */}
-                    <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
-                      {el.LOCPLC_AR_INFO}
                     </TableCell>
                     {/* 종업원수 */}
                     <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
