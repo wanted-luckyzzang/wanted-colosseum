@@ -9,15 +9,6 @@ import Paper from '@mui/material/Paper';
 import axios from 'axios';
 import { Select, Button } from 'Components';
 import { getSelectList } from 'utils';
-import Fab from '@mui/material/Fab';
-import {
-  AiFillCaretUp,
-  AiFillCaretDown,
-  AiFillCaretLeft,
-  AiFillCaretRight,
-} from 'react-icons/ai';
-import PropTypes from 'prop-types';
-import { InputLabel } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
@@ -289,6 +280,7 @@ export default function Table(props: any) {
               </TableBody>
             </MUITable>
           </TableContainer>
+          <div id="back-to-bottom-anchor"/>
           <Button {...props} />
         </>
       )}
