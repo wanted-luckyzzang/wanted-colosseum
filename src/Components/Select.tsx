@@ -19,11 +19,11 @@ const Select = ({ data, options, member, setData, title }: SelectType) => {
   return (
     <>
       <input
-        list="select"
+        list={title}
         placeholder={title}
         onChange={(e) => setSelect(e.target.value)}
       />
-      <datalist id="select">
+      <datalist id={title}>
         {options?.map((option, idx) => (
           <option key={idx} value={option} />
         ))}
