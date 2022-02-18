@@ -2,11 +2,14 @@ import { DataType } from 'Components/Table';
 
 const getFilterData = (
   data: DataType[] | undefined,
-  member: string,
-  value: string | null,
+  selectList: DataType,
 ): DataType[] | undefined => {
-  const filterData = data?.filter((obj) => obj[member] === value);
-
+  const keyArray = Object.keys(selectList);
+  let filterData = data;
+  keyArray.forEach((key) => {
+    if (selectList[key].length)
+      filterData = filterData?.filter((data) => data[key] === selectList[key]);
+  });
   return filterData;
 };
 

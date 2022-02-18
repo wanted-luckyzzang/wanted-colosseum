@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import axios from 'axios';
 import { Select, Button } from 'Components';
-import { getSelectList } from 'utils';
+import { getFilterData, getSelectList } from 'utils';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
@@ -19,6 +19,8 @@ export interface DataType {
 export default function Table(props: any) {
   const [data, setData] = React.useState<DataType[] | undefined>();
   const [cpData, setCpData] = React.useState<DataType[] | undefined>();
+  const [selectList, setSelectList] = React.useState<DataType>({});
+
   React.useEffect(() => {
     (async () => {
       try {
@@ -30,9 +32,9 @@ export default function Table(props: any) {
       }
     })();
   }, []);
-  console.log(data);
-  console.log('util', getSelectList(data, 'SIGUN_NM'));
-
+  React.useEffect(() => {
+    setCpData(getFilterData(data, selectList));
+  }, [selectList]);
   return (
     <>
       {!data ? (
@@ -64,147 +66,128 @@ export default function Table(props: any) {
                   {/* 지역명 */}
                   <TableCell align="left">
                     <Select
-                      data={data}
-                      list={getSelectList(data, 'SIGUN_NM')}
+                      options={getSelectList(data, 'SIGUN_NM')}
                       member={'SIGUN_NM'}
-                      setData={setCpData}
                       title={'지역'}
+                      selectList={selectList}
+                      setSelectList={setSelectList}
                     />
                   </TableCell>
-
-                  {/*사업장명  */}
                   <TableCell align="left">
                     <Select
-                      data={data}
-                      list={getSelectList(data, 'BIZPLC_NM')}
+                      options={getSelectList(data, 'BIZPLC_NM')}
                       member={'BIZPLC_NM'}
-                      setData={setCpData}
                       title={'사업장명'}
+                      selectList={selectList}
+                      setSelectList={setSelectList}
                     />
                   </TableCell>
-                  {/* 인허가일자 */}
                   <TableCell align="left">
                     <Select
-                      data={data}
-                      list={getSelectList(data, 'LICENSG_DE')}
+                      options={getSelectList(data, 'LICENSG_DE')}
                       member={'LICENSG_DE'}
-                      setData={setCpData}
                       title={'인허가일자'}
+                      selectList={selectList}
+                      setSelectList={setSelectList}
                     />
                   </TableCell>
-                  {/* 영업상태구분코드 */}
                   <TableCell align="left">
                     <Select
-                      list={getSelectList(data, 'BSN_STATE_DIV')}
-                      setData={setCpData}
-                      data={data}
+                      options={getSelectList(data, 'BSN_STATE_DIV')}
                       member={'BSN_STATE_DIV'}
                       title={'영업상태구분코드'}
+                      selectList={selectList}
+                      setSelectList={setSelectList}
                     />
                   </TableCell>
-                  {/* 영업상태명 */}
                   <TableCell align="left">
                     <Select
-                      list={getSelectList(data, 'BSN_STATE_NM')}
-                      data={data}
+                      options={getSelectList(data, 'BSN_STATE_NM')}
                       member={'BSN_STATE_NM'}
-                      setData={setCpData}
                       title={'영업상태명'}
+                      selectList={selectList}
+                      setSelectList={setSelectList}
                     />
                   </TableCell>
-                  {/* 소재지 시설 전화 */}
-                  <TableCell align="left">소재지 시설 전화</TableCell>
-                  {/* 도로명 우편 번호 */}
                   <TableCell align="left">
                     <Select
-                      data={data}
-                      list={getSelectList(data, 'ROADNM_ZIPNO')}
+                      options={getSelectList(data, 'LOCPLC_FACLT_TELNO_DTLS')}
+                      member={'LOCPLC_FACLT_TELNO_DTLS'}
+                      title={'소재지 시설 전화'}
+                      selectList={selectList}
+                      setSelectList={setSelectList}
+                    />
+                  </TableCell>
+                  <TableCell align="left">
+                    <Select
+                      options={getSelectList(data, 'ROADNM_ZIPNO')}
                       member={'ROADNM_ZIPNO'}
-                      setData={setCpData}
                       title={'도로명 우편 번호'}
+                      selectList={selectList}
+                      setSelectList={setSelectList}
                     />
                   </TableCell>
-                  {/* 소재지 도로명 주소*/}
                   <TableCell align="left">
                     <Select
-                      data={data}
-                      list={getSelectList(data, 'REFINE_ROADNM_ADDR')}
+                      options={getSelectList(data, 'REFINE_ROADNM_ADDR')}
                       member={'REFINE_ROADNM_ADDR'}
-                      setData={setCpData}
                       title={'소재지도로명주소'}
+                      selectList={selectList}
+                      setSelectList={setSelectList}
                     />
                   </TableCell>
-                  {/* 소재지 우편 */}
                   <TableCell align="left">
                     <Select
-                      data={data}
-                      list={getSelectList(
-                        data,
-                        'REFINE_ROADNMGENRL_WAREHS_DONG_CNT_ADDR',
-                      )}
-                      member={'REFINE_ROADNMGENRL_WAREHS_DONG_CNT_ADDR'}
-                      setData={setCpData}
+                      options={getSelectList(data, 'REFINE_ZIPNO')}
+                      member={'REFINE_ZIPNO'}
                       title={'소재지우편'}
+                      selectList={selectList}
+                      setSelectList={setSelectList}
                     />
                   </TableCell>
-                  {/* 일반 창고 동수 */}
                   <TableCell align="left">
                     <Select
-                      data={data}
-                      list={getSelectList(data, 'GENRL_WAREHS_DONG_CNT')}
+                      options={getSelectList(data, 'GENRL_WAREHS_DONG_CNT')}
                       member={'GENRL_WAREHS_DONG_CNT'}
-                      setData={setCpData}
                       title={'일반창고동수'}
+                      selectList={selectList}
+                      setSelectList={setSelectList}
                     />
                   </TableCell>
-                  {/* 일반 창고 면적 */}
                   <TableCell align="left">
                     <Select
-                      data={data}
-                      list={getSelectList(data, 'GENRL_WAREHS_AR_INFO')}
+                      options={getSelectList(data, 'GENRL_WAREHS_AR_INFO')}
                       member={'GENRL_WAREHS_AR_INFO'}
-                      setData={setCpData}
                       title={'일반 창고 면적'}
+                      selectList={selectList}
+                      setSelectList={setSelectList}
                     />
                   </TableCell>
-                  {/* 보관창고 면적 */}
                   <TableCell align="left">
                     <Select
-                      data={data}
-                      list={getSelectList(data, 'LOCPLC_AR_INFO')}
-                      member={'LOCPLC_AR_INFO'}
-                      setData={setCpData}
-                      title={'보관창고 면적'}
-                    />
-                  </TableCell>
-                  {/* 종업원수 */}
-                  <TableCell align="left">
-                    <Select
-                      data={data}
-                      list={getSelectList(data, 'EMPLY_CNT')}
+                      options={getSelectList(data, 'EMPLY_CNT')}
                       member={'EMPLY_CNT'}
-                      setData={setCpData}
                       title={'종업원수'}
+                      selectList={selectList}
+                      setSelectList={setSelectList}
                     />
                   </TableCell>
-                  {/* 시설 장비 현황 */}
                   <TableCell align="left">
                     <Select
-                      data={data}
-                      list={getSelectList(data, 'FACLT_EQUP_STUS')}
+                      options={getSelectList(data, 'FACLT_EQUP_STUS')}
                       member={'FACLT_EQUP_STUS'}
-                      setData={setCpData}
                       title={'시설 장비 현황'}
+                      selectList={selectList}
+                      setSelectList={setSelectList}
                     />
                   </TableCell>
-                  {/* 법인여부명 */}
                   <TableCell align="left">
                     <Select
-                      data={data}
-                      list={getSelectList(data, 'COPRTN_YN_NM')}
+                      options={getSelectList(data, 'COPRTN_YN_NM')}
                       member={'COPRTN_YN_NM'}
-                      setData={setCpData}
                       title={'법인여부명'}
+                      selectList={selectList}
+                      setSelectList={setSelectList}
                     />
                   </TableCell>
                 </TableRow>
@@ -249,7 +232,7 @@ export default function Table(props: any) {
                     </TableCell>
                     {/* 소재지 우편 */}
                     <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
-                      {el.REFINE_ROADNMGENRL_WAREHS_DONG_CNT_ADDR}
+                      {el.REFINE_ZIPNO}
                     </TableCell>
                     {/* 일반 창고 동수 */}
                     <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
@@ -258,10 +241,6 @@ export default function Table(props: any) {
                     {/* 일반 창고 면적 */}
                     <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
                       {el.GENRL_WAREHS_AR_INFO}
-                    </TableCell>
-                    {/* 보관창고 면적 */}
-                    <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
-                      {el.LOCPLC_AR_INFO}
                     </TableCell>
                     {/* 종업원수 */}
                     <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
