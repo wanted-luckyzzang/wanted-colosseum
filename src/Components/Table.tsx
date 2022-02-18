@@ -61,7 +61,7 @@ export default function Table(props: any) {
               aria-label="sticky table"
             >
               <TableHead>
-                <TableRow sx={{ alignItems: 'center' }} id="back-to-top-anchor">
+                <TableRow sx={{ alignItems: 'center' }}>
                   {/* 지역명 */}
                   <TableCell align="left">
                     <Select
@@ -258,8 +258,7 @@ export default function Table(props: any) {
               </TableBody>
             </MUITable>
           </TableContainer>
-          <div id="back-to-bottom-anchor"/>
-          <Button {...props} />
+          <Button/>
         </>
       )}
     </>

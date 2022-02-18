@@ -1,57 +1,47 @@
-import useScrollTrigger from '@mui/material/useScrollTrigger';
-import Box from '@mui/material/Box';
-import Fab from '@mui/material/Fab';
-import Zoom from '@mui/material/Zoom';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import getScrollTo from 'utils/getScrollTo';
 
-export default function Button(props: any) {
-  const { children, window } = props;
+export default function Button() {
 
-  const trigger = useScrollTrigger({
-    target: window ? window() : undefined,
-    disableHysteresis: true,
-    threshold: 100,
-  });
-
-  const handleTopClick = (event: any) => {
-    const anchor = (event.target.ownerDocument || document).querySelector(
-      '#back-to-top-anchor',
-    );
-
-    if (anchor) {
-      anchor.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-      });
-    }
+  const handleTopClick = () => {
+    window.scrollTo({ top: window.scrollY - window.innerHeight, behavior: 'smooth' })
   };
 
-  const handleBottomClick = (event: any) => {
-    const anchorBottom = (event.target.ownerDocument || document).querySelector(
-      '#back-to-bottom-anchor',
-    );
+  const handleDoubleTopClick = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  };
 
-    if (anchorBottom) {
-      anchorBottom.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-      });
-    }
+  const handleBottomClick = () => {
+    window.scrollTo({ top: window.scrollY + window.innerHeight, behavior: 'smooth' })
+  };
+
+  const handleDoubleBottomClick = () => {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
   };
 
   return (
-    <Zoom in={trigger}>
-      <Box
-        role="presentation"
-        sx={{ position: 'fixed', bottom: 16, right: 16 }}
-      >
-        {children}
-        <Fab color="primary" sx={{ width: '60px', height: '60px', margin: '10px auto' }}>
-          <ArrowDropUpIcon onClick={handleTopClick} fontSize='large' sx={{position: 'absolute', top: '0'}} />
-          <ArrowDropDownIcon onClick={handleBottomClick} fontSize='large' sx={{position: 'absolute', bottom: '0'}} />
-        </Fab>
-      </Box>
-    </Zoom>
+    <>
+    <div style={{position: 'fixed', right: '0', bottom: '0', height: '100px', width: '100px', borderRadius: '50%', background: '#dbdbdb'}} >
+      <div style={{width: 'fit-content', position: 'absolute', right: '32.3%', cursor: 'pointer'}}
+      onDoubleClick={handleDoubleTopClick} onClick={handleTopClick}>
+      <ArrowDropUpIcon fontSize='large' sx={{color: 'white'}}/>
+      </div>
+      <div style={{width: 'fit-content', position: 'absolute', bottom: '31.5%', right: '0', cursor: 'pointer'}} 
+      onDoubleClick={()=>getScrollTo("left", Number(document.body.scrollWidth))} onClick={()=>getScrollTo("left", Number(window.scrollX) + Number(window.innerWidth))}>
+      <ArrowRightIcon fontSize='large' sx={{color: 'white'}}/>
+      </div>
+      <div style={{width: 'fit-content', position: 'absolute', right: '33.3%', bottom: '0', cursor: 'pointer'}} 
+      onDoubleClick={handleDoubleBottomClick} onClick={handleBottomClick}>
+      <ArrowDropDownIcon fontSize='large' sx={{color: 'white'}}/>
+      </div>
+      <div style={{width: 'fit-content', position: 'absolute', bottom: '31.5%', left: '0', cursor: 'pointer'}}
+      onDoubleClick={()=>getScrollTo("left", document.body.scrollLeft)} onClick={()=>getScrollTo("left", window.scrollX - window.innerWidth)}>
+      <ArrowLeftIcon fontSize='large' sx={{color: 'white'}}/>
+      </div>
+    </div>
+    </>
   );
 }
