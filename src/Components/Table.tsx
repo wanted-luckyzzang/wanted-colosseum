@@ -11,6 +11,7 @@ import { Select, Button } from 'Components';
 import { getFilterData, getSelectList } from 'utils';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import Modal from './Modal';
 
 export interface DataType {
   [key: string]: string;
@@ -20,6 +21,8 @@ export default function Table(props: any) {
   const [data, setData] = React.useState<DataType[] | undefined>();
   const [cpData, setCpData] = React.useState<DataType[] | undefined>();
   const [selectList, setSelectList] = React.useState<DataType>({});
+  const [openModal, setOpenModal] = React.useState<boolean>(false);
+  const [clickData, setClickData] = React.useState<DataType | undefined>({});
 
   React.useEffect(() => {
     (async () => {
@@ -35,6 +38,7 @@ export default function Table(props: any) {
   React.useEffect(() => {
     setCpData(getFilterData(data, selectList));
   }, [selectList]);
+
   return (
     <>
       {!data ? (
@@ -55,11 +59,11 @@ export default function Table(props: any) {
         </Box>
       ) : (
         <>
-          <TableContainer component={Paper} sx={{overflowX: "visible"}}>
-            <MUITable
-              stickyHeader
-              aria-label="sticky table"
-            >
+          <TableContainer
+            component={Paper}
+            sx={{ position: 'relative', overflowX: 'visible' }}
+          >
+            <MUITable stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow sx={{ alignItems: 'center' }}>
                   {/* 지역명 */}
@@ -193,72 +197,83 @@ export default function Table(props: any) {
               </TableHead>
               <TableBody>
                 {cpData?.map((el, idx) => (
-                  <TableRow
-                    key={idx}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    {/* 지역명 */}
-                    <TableCell component="th" scope="row">
-                      {el.SIGUN_NM}
-                    </TableCell>
-                    {/*사업장명  */}
-                    <TableCell sx={{ width: 'max-content' }} align="left">
-                      {el.BIZPLC_NM}
-                    </TableCell>
-                    {/* 인허가일자 */}
-                    <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
-                      {el.LICENSG_DE}
-                    </TableCell>
-                    {/* 영업상태구분코드 */}
-                    <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
-                      {el.BSN_STATE_DIV}
-                    </TableCell>
-                    {/* 영업상태명 */}
-                    <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
-                      {el.BSN_STATE_NM}
-                    </TableCell>
-                    {/* 소재지 시설 전화 */}
-                    <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
-                      {el.LOCPLC_FACLT_TELNO_DTLS}
-                    </TableCell>
-                    {/* 도로명 우편 번호 */}
-                    <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
-                      {el.ROADNM_ZIPNO}
-                    </TableCell>
-                    {/* 소재지 도로명 주소*/}
-                    <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
-                      {el.REFINE_ROADNM_ADDR}
-                    </TableCell>
-                    {/* 소재지 우편 */}
-                    <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
-                      {el.REFINE_ZIPNO}
-                    </TableCell>
-                    {/* 일반 창고 동수 */}
-                    <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
-                      {el.GENRL_WAREHS_DONG_CNT}
-                    </TableCell>
-                    {/* 일반 창고 면적 */}
-                    <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
-                      {el.GENRL_WAREHS_AR_INFO}
-                    </TableCell>
-                    {/* 종업원수 */}
-                    <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
-                      {el.EMPLY_CNT}
-                    </TableCell>
-                    {/* 시설 장비 현황 */}
-                    <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
-                      {el.FACLT_EQUP_STUS}
-                    </TableCell>
-                    {/* 법인여부명 */}
-                    <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
-                      {el.COPRTN_YN_NM}
-                    </TableCell>
-                  </TableRow>
+                  <>
+                    <TableRow
+                      key={idx}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                      onClick={() => {
+                        setOpenModal(true);
+                        setClickData(cpData[idx]);
+                      }}
+                    >
+                      {/* 지역명 */}
+                      <TableCell component="th" scope="row">
+                        {el.SIGUN_NM}
+                      </TableCell>
+                      {/*사업장명  */}
+                      <TableCell sx={{ width: 'max-content' }} align="left">
+                        {el.BIZPLC_NM}
+                      </TableCell>
+                      {/* 인허가일자 */}
+                      <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
+                        {el.LICENSG_DE}
+                      </TableCell>
+                      {/* 영업상태구분코드 */}
+                      <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
+                        {el.BSN_STATE_DIV}
+                      </TableCell>
+                      {/* 영업상태명 */}
+                      <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
+                        {el.BSN_STATE_NM}
+                      </TableCell>
+                      {/* 소재지 시설 전화 */}
+                      <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
+                        {el.LOCPLC_FACLT_TELNO_DTLS}
+                      </TableCell>
+                      {/* 도로명 우편 번호 */}
+                      <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
+                        {el.ROADNM_ZIPNO}
+                      </TableCell>
+                      {/* 소재지 도로명 주소*/}
+                      <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
+                        {el.REFINE_ROADNM_ADDR}
+                      </TableCell>
+                      {/* 소재지 우편 */}
+                      <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
+                        {el.REFINE_ZIPNO}
+                      </TableCell>
+                      {/* 일반 창고 동수 */}
+                      <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
+                        {el.GENRL_WAREHS_DONG_CNT}
+                      </TableCell>
+                      {/* 일반 창고 면적 */}
+                      <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
+                        {el.GENRL_WAREHS_AR_INFO}
+                      </TableCell>
+                      {/* 종업원수 */}
+                      <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
+                        {el.EMPLY_CNT}
+                      </TableCell>
+                      {/* 시설 장비 현황 */}
+                      <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
+                        {el.FACLT_EQUP_STUS}
+                      </TableCell>
+                      {/* 법인여부명 */}
+                      <TableCell sx={{ whiteSpace: 'nowrap' }} align="left">
+                        {el.COPRTN_YN_NM}
+                      </TableCell>
+                    </TableRow>
+                    <Modal
+                      cpData={clickData}
+                      openModal={openModal}
+                      setOpenModal={setOpenModal}
+                    />
+                  </>
                 ))}
               </TableBody>
             </MUITable>
           </TableContainer>
-          <Button/>
+          <Button />
         </>
       )}
     </>
