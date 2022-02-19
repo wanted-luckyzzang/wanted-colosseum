@@ -6,6 +6,7 @@
 - 기간 : 22.02.17 ~ 22.02.19
 
 ## 2. 배포 링크
+https://colosseum-mission.herokuapp.com/
 
 ## 3. 팀원 소개
 
