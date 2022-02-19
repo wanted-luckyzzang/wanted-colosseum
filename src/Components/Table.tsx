@@ -28,7 +28,7 @@ export default function Table() {
     (async () => {
       try {
         const { data } = await axios.get(
-          'https://colosseum-mission.herokuapp.com//requests',
+          'https://colosseum-mission.herokuapp.com/requests',
         );
         setData(data);
         setCpData(data);
