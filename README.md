@@ -80,7 +80,7 @@ https://colosseum-mission.herokuapp.com/
 json-server 실행
 
 ```
-npm run server
+npm run start:server
 ```
 
 클라이언트 실행
