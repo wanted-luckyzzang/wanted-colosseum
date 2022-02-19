@@ -1,5 +1,11 @@
+import { Table } from 'Components';
+
 const App = (): JSX.Element => {
-  return <div>hello!</div>;
+  return (
+    <>
+      <Table />
+    </>
+  );
 };
 
 export default App;
