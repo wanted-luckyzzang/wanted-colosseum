@@ -83,7 +83,6 @@ export default function Button() {
           onDoubleClick={handleDoubleBottomClick}
           onClick={handleBottomClick}
         >
-          ㄴ
           <ArrowDropDownIcon fontSize="large" sx={{ color: 'white' }} />
         </div>
         <div
