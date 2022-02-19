@@ -27,7 +27,9 @@ export default function Table() {
   React.useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get('http://localhost:8000/requests');
+        const { data } = await axios.get(
+          'https://colosseum-mission.herokuapp.com//requests',
+        );
         setData(data);
         setCpData(data);
       } catch (err) {
