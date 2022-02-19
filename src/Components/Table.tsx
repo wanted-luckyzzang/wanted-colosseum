@@ -55,11 +55,8 @@ export default function Table(props: any) {
         </Box>
       ) : (
         <>
-          <TableContainer component={Paper} sx={{overflowX: "visible"}}>
-            <MUITable
-              stickyHeader
-              aria-label="sticky table"
-            >
+          <TableContainer component={Paper} sx={{ overflowX: 'visible' }}>
+            <MUITable stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow sx={{ alignItems: 'center' }}>
                   {/* 지역명 */}
@@ -258,7 +255,7 @@ export default function Table(props: any) {
               </TableBody>
             </MUITable>
           </TableContainer>
-          <Button/>
+          <Button />
         </>
       )}
     </>
