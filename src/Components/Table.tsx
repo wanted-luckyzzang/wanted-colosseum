@@ -17,7 +17,7 @@ export interface DataType {
   [key: string]: string;
 }
 
-export default function Table(props: any) {
+export default function Table() {
   const [data, setData] = React.useState<DataType[] | undefined>();
   const [cpData, setCpData] = React.useState<DataType[] | undefined>();
   const [selectList, setSelectList] = React.useState<DataType>({});
