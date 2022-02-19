@@ -8,7 +8,9 @@ const getFilterData = (
   let filterData = data;
   keyArray.forEach((key) => {
     if (selectList[key].length)
-      filterData = filterData?.filter((data) => data[key] === selectList[key]);
+      filterData = filterData?.filter((data) =>
+        data[key].includes(selectList[key]),
+      );
   });
   return filterData;
 };
